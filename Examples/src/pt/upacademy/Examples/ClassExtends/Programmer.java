@@ -18,7 +18,7 @@ public class Programmer extends Writer {
     }
 
     public static void main(String[] args) {
-         Writer w = new Programmer();
-         w.write();
+//         Writer w = new Programmer();
+//         w.write();
     }
 }

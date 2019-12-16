@@ -1,6 +1,6 @@
-package io.altar.jseproject.textinterface;
+package io.altar.jseproject.pratica1.textinterface;
 
-import io.altar.jseproject.textinterface.ScannerUtils.ScannerUtils;
+import io.altar.jseproject.pratica1.textinterface.ScannerUtils.ScannerUtils;
 
 public class TextInterface {
 	ScannerUtils sc = new ScannerUtils();

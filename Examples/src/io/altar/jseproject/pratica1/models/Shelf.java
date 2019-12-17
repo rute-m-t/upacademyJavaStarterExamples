@@ -1,4 +1,4 @@
-package io.altar.jseproject.models;
+package io.altar.jseproject.pratica1.models;
 
 public class Shelf {
 

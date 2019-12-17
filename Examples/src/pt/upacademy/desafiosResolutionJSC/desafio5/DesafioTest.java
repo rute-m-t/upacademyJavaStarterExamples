@@ -1,4 +1,4 @@
-package pt.upacademy.desafios.desafio5;
+package pt.upacademy.desafiosResolutionJSC.desafio5;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

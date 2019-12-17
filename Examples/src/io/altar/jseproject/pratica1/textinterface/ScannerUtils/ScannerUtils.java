@@ -1,4 +1,4 @@
-package io.altar.jseproject.textinterface.ScannerUtils;
+package io.altar.jseproject.pratica1.textinterface.ScannerUtils;
 
 import java.util.Scanner;
 

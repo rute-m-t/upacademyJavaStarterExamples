@@ -1,5 +1,9 @@
 package pt.upacademy.desafios.desafio2;
 
+
+//import java.util.stream.Stream;
+
+
 public class Desafio {
 
 	public static String order(String string) {
@@ -7,6 +11,8 @@ public class Desafio {
 			return "";
 		}
 		String[] words = string.split(" ");
+		//List<String> wordList = Arrays.asList(words);
+		//Stream.of(words).sorted((str1, str2) -> str1.split().))
 		StringBuilder result = new StringBuilder("");
 		int count = 0;
 		for (int i = 0; i < 10; i++) {

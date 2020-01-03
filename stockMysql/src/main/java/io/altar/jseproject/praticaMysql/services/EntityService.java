@@ -4,11 +4,13 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 import io.altar.jseproject.praticaMysql.models.Entity_;
 import io.altar.jseproject.praticaMysql.repositories.EntityRepository;
 import io.altar.jseproject.praticaMysql.services.interfaces.EntityServiceInterface;
 
+@Transactional
 public abstract class EntityService<R extends EntityRepository<E>,E extends Entity_> implements EntityServiceInterface<E> {
 	
 	@Inject

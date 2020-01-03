@@ -1,12 +1,12 @@
-package io.altar.jseproject.pratica2States.services;
+package io.altar.jseproject.praticaJaxrs.services;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import io.altar.jseproject.pratica2States.models.Shelf;
-import io.altar.jseproject.pratica2States.repositories.ShelfRepository;
-import io.altar.jseproject.pratica2States.services.interfaces.ShelfServiceInterface;
+import io.altar.jseproject.praticaJaxrs.models.Shelf;
+import io.altar.jseproject.praticaJaxrs.repositories.ShelfRepository;
+import io.altar.jseproject.praticaJaxrs.services.interfaces.ShelfServiceInterface;
 
 public class ShelfService extends EntityService<ShelfRepository ,Shelf> implements ShelfServiceInterface {
 
@@ -56,5 +56,10 @@ public class ShelfService extends EntityService<ShelfRepository ,Shelf> implemen
 		.collect(Collectors.toList());
 		
 		return result;
+	}
+
+	@Override
+	protected String getEntityClassName() {
+		return Shelf.getName();
 	}
 }

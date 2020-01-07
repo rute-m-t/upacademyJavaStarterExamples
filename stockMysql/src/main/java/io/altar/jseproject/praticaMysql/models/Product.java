@@ -75,5 +75,5 @@ public class Product extends Entity_<ProductDTO> {
 	public String toString() {
 		return "Product [shelves=" + shelves + ", discount=" + discount + ", iva=" + iva + ", pvp=" + pvp + "]";
 	}
-	
+
 }

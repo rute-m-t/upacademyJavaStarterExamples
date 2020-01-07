@@ -7,11 +7,12 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 
 import io.altar.jseproject.praticaMysql.models.Entity_;
+import io.altar.jseproject.praticaMysql.models.DTOS.EntityDTO;
 import io.altar.jseproject.praticaMysql.repositories.EntityRepository;
 import io.altar.jseproject.praticaMysql.services.interfaces.EntityServiceInterface;
 
 @Transactional
-public abstract class EntityService<R extends EntityRepository<E>,E extends Entity_> implements EntityServiceInterface<E> {
+public abstract class EntityService<R extends EntityRepository<E, D>,E extends Entity_<D>, D extends EntityDTO> implements EntityServiceInterface<E, D> {
 	
 	@Inject
 	protected R repository;
@@ -44,7 +45,13 @@ public abstract class EntityService<R extends EntityRepository<E>,E extends Enti
 
 	@Override
 	public void delete(long id) {
+		canDelete(validEntity(id));
 		repository.removeEntity(id);
+	}
+	
+	@Override
+	public long size() {
+		return repository.size();
 	}
 	
 	public E validEntity(long entityId) {
@@ -57,4 +64,6 @@ public abstract class EntityService<R extends EntityRepository<E>,E extends Enti
 	}
 	
 	protected abstract String getEntityClassName();
+	
+	protected abstract boolean canDelete(E entity);
 }

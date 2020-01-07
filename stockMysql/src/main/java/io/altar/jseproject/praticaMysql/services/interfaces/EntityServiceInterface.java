@@ -4,8 +4,9 @@ import java.util.Collection;
 import java.util.List;
 
 import io.altar.jseproject.praticaMysql.models.Entity_;
+import io.altar.jseproject.praticaMysql.models.DTOS.EntityDTO;
 
-public interface EntityServiceInterface<T extends Entity_> {
+public interface EntityServiceInterface<T extends Entity_<D>, D extends EntityDTO> {
 
 	T get(long id);
 
@@ -18,4 +19,6 @@ public interface EntityServiceInterface<T extends Entity_> {
 	void update(T entity);
 
 	void delete(long id);
+	
+	long size();
 }

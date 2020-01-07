@@ -1,6 +1,7 @@
 package io.altar.jseproject.praticaMysql.models;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -25,7 +26,7 @@ public class Shelf extends Entity_<ShelfDTO> {
 
 	private static final long serialVersionUID = 1L;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Product product;
 	private int capacity;
 	private float dailyPrice;
@@ -63,4 +64,11 @@ public class Shelf extends Entity_<ShelfDTO> {
 				(this.getProduct() == null) ? 0 : this.getProduct().getId());
 	}
 
+	@Override
+	public String toString() {
+		long productId = (product == null) ? 0 : product.getId();
+		return "Shelf [product=" + productId + ", capacity=" + capacity + ", dailyPrice=" + dailyPrice + "]";
+	}
+
+	
 }

@@ -39,4 +39,10 @@ public class ShelfDTO extends EntityDTO {
 	public void setDailyPrice(float dailyPrice) {
 		this.dailyPrice = dailyPrice;
 	}
+
+	@Override
+	public String toString() {
+		return "ShelfDTO [productId=" + productId + ", capacity=" + capacity + ", dailyPrice=" + dailyPrice + "]";
+	}
+	
 }

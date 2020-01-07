@@ -24,11 +24,13 @@ public class ProductController extends EntityController<ProductService, ProductR
 		Product product = new Product();
 		if (entityDTO.getId() > 0) {
 			product.setId(entityDTO.getId());
+			SS.removeProductsByProductId(entityDTO.getId());
 		}
 		product.setIva(entityDTO.getIva());
 		product.setPvp(entityDTO.getPvp());
 		product.setDiscount(entityDTO.getDiscount());
 		product.setShelves(entityDTO.getShelfIds().stream().map(entityId -> SS.get(entityId)).collect(Collectors.toList()));
+		
 		entityDTO.getShelfIds().forEach(shelfId -> SS.get(shelfId).setProduct(product));
 		return product;
 	}

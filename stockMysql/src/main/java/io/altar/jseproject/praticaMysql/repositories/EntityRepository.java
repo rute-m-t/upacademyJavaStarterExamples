@@ -4,12 +4,10 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 
 import io.altar.jseproject.praticaMysql.models.Entity_;
 import io.altar.jseproject.praticaMysql.models.DTOS.EntityDTO;
 
-@Transactional
 public abstract class EntityRepository<T extends Entity_<D>, D extends EntityDTO> {
 
 	@PersistenceContext(unitName = "database")

@@ -52,4 +52,10 @@ public class ProductDTO extends EntityDTO {
 	public void setPvp(float pvp) {
 		this.pvp = pvp;
 	}
+
+	@Override
+	public String toString() {
+		return "ProductDTO [shelfIds=" + shelfIds + ", discount=" + discount + ", iva=" + iva + ", pvp=" + pvp + "]";
+	}
+	
 }

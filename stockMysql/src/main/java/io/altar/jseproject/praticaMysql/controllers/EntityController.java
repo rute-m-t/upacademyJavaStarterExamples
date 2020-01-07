@@ -23,7 +23,6 @@ import io.altar.jseproject.praticaMysql.models.DTOS.EntityDTO;
 import io.altar.jseproject.praticaMysql.repositories.EntityRepository;
 import io.altar.jseproject.praticaMysql.services.EntityService;
 
-
 @Transactional
 public abstract class EntityController<S extends EntityService<R,E,T>,R extends EntityRepository<E, T>,E extends Entity_<T>,T extends EntityDTO> {
  
@@ -75,6 +74,8 @@ public abstract class EntityController<S extends EntityService<R,E,T>,R extends 
 		try {
 			long currentId = service.create(toEntity(entityDTO));
 			return Response.status(200).entity(currentId).build();
+		} catch (UnsupportedOperationException e) {
+			return Response.status(403).entity(e.getMessage()).build();
 		} catch (Exception e) {
 			return Response.status(400).entity(e.getMessage()).build();
 		}
@@ -87,6 +88,8 @@ public abstract class EntityController<S extends EntityService<R,E,T>,R extends 
 			E entity = toEntity(entityDTO);
 			service.update(entity);
 			return Response.ok().build();
+		} catch (UnsupportedOperationException e) {
+			return Response.status(403).entity(e.getMessage()).build();
 		} catch (Exception e) {
 			return Response.status(400).entity(e.getMessage()).build();
 		}

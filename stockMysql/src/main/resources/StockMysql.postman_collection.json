@@ -57,7 +57,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"discountValue\" : \"31\",\n\t\"iva\" : \"0\",\n\t\"pvp\" : \"3\"\n}"
+					"raw": "{\n\t\"discountValue\" : \"31\",\n\t\"iva\" : \"0\",\n\t\"pvp\" : \"3\",\n\t\"shelfIds\": []\n}"
 				},
 				"url": {
 					"raw": "localhost:8080/stock/products/",
@@ -86,7 +86,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"capacity\" : 5,\n\t\"rentPrice\" : 10,\n\t\"product\" : {\n\t \"id\" : 1\t\n\t}\n}"
+					"raw": "{\n\t\"capacity\" : 5,\n\t\"rentPrice\" : 10,\n\t\"productId\" : 0\n}"
 				},
 				"url": {
 					"raw": "localhost:8080/stock/shelves",
@@ -114,7 +114,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n        \"id\": 3,\n        \"discount\": 0,\n        \"iva\": 0,\n        \"pvp\": 3.0,\n        \"shelvesIds\": [1,2,3]\n    }"
+					"raw": "{\n        \"id\": 1,\n        \"discount\": 0,\n        \"iva\": 0,\n        \"pvp\": 3.0,\n        \"shelfIds\": []\n    }"
 				},
 				"url": {
 					"raw": "localhost:8080/stock/products/",
@@ -143,7 +143,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": 1,\n    \"capacity\": 5,\n    \"dailyPrice\": 0.0,\n    \"productId\": 2\n}\n"
+					"raw": "{\n    \"id\": 1,\n    \"capacity\": 5,\n    \"dailyPrice\": 0,\n    \"productId\": 0\n}\n"
 				},
 				"url": {
 					"raw": "localhost:8080/stock/shelves/",
@@ -206,7 +206,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/stock/products/3",
+					"raw": "localhost:8080/stock/products/1",
 					"host": [
 						"localhost"
 					],
@@ -214,7 +214,7 @@
 					"path": [
 						"stock",
 						"products",
-						"3"
+						"1"
 					]
 				}
 			},
@@ -226,7 +226,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/stock/shelves/3",
+					"raw": "localhost:8080/stock/shelves/1",
 					"host": [
 						"localhost"
 					],
@@ -234,7 +234,7 @@
 					"path": [
 						"stock",
 						"shelves",
-						"3"
+						"1"
 					]
 				}
 			},

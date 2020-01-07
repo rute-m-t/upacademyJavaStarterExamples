@@ -24,7 +24,7 @@ public class Product extends Entity_<ProductDTO> {
 
 	private static final long serialVersionUID = 1L;
 
-	@OneToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, mappedBy = "product", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = false)
 	private List<Shelf> shelves;
 	private int discount;
 	private int iva;

@@ -1,11 +1,9 @@
-package io.altar.jseproject.praticaMysql.models;
+package io.altar.jseproject.praticaMysql.models.DTOS;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDTO {
-
-	private static final long serialVersionUID = 1L;
+public class ProductDTO extends EntityDTO {
 
 	private List<Long> shelfIds = new ArrayList<Long>();
 	private int discount;
@@ -15,7 +13,8 @@ public class ProductDTO {
 	public ProductDTO() {
 	}
 
-	public ProductDTO(List<Long> shelfIds, int discount, int iva, float pvp) {
+	public ProductDTO(long id,List<Long> shelfIds, int discount, int iva, float pvp) {
+		this.id = id;
 		this.shelfIds = shelfIds;
 		this.discount = discount;
 		this.iva = iva;
@@ -53,4 +52,10 @@ public class ProductDTO {
 	public void setPvp(float pvp) {
 		this.pvp = pvp;
 	}
+
+	@Override
+	public String toString() {
+		return "ProductDTO [shelfIds=" + shelfIds + ", discount=" + discount + ", iva=" + iva + ", pvp=" + pvp + "]";
+	}
+	
 }

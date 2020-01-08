@@ -1,8 +1,12 @@
 package io.altar.jseproject.praticaMysql.repositories;
 
-import io.altar.jseproject.praticaMysql.models.Product;
+import javax.enterprise.context.RequestScoped;
 
-public class ProductRepository extends EntityRepository<Product> {
+import io.altar.jseproject.praticaMysql.models.Product;
+import io.altar.jseproject.praticaMysql.models.DTOS.ProductDTO;
+
+@RequestScoped
+public class ProductRepository extends EntityRepository<Product, ProductDTO> {
 
 	@Override
 	protected Class<Product> getEntityClass() {
@@ -17,5 +21,10 @@ public class ProductRepository extends EntityRepository<Product> {
 	@Override
 	protected String getAllEntitiesIds() {
 		return Product.GET_ALL_PRODUCTS_IDS;
+	}
+	
+	@Override
+	protected String getEntitiesCount() {
+		return Product.GET_PRODUCTS_COUNT;
 	}
 }

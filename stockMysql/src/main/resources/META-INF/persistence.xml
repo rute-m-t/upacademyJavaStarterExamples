@@ -11,17 +11,18 @@
 		<jta-data-source>java:/MySqlDS</jta-data-source>
 
 		<properties>
-			<!-- Propriedades JDBC -->
+			<!-- Propriedades JDBC 
 			<property name="javax.persistence.jdbc.driver"
 				value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:mysql://localhost:3306/mysqldb?useSSL=false" />
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password"
-				value="rootroot" />
+				value="rootroot" /> -->
 			<property
 				name="javax.persistence.schema-generation.database.action"
 				value="drop-and-create" />
+				
 			<!-- Configurações específicas do Hibernate -->
 			<property name="hibernate.dialect"
 				value="org.hibernate.dialect.MySQL5InnoDBDialect" />

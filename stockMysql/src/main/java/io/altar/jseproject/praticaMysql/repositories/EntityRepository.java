@@ -4,12 +4,11 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 
 import io.altar.jseproject.praticaMysql.models.Entity_;
+import io.altar.jseproject.praticaMysql.models.DTOS.EntityDTO;
 
-@Transactional
-public abstract class EntityRepository<T extends Entity_> {
+public abstract class EntityRepository<T extends Entity_<D>, D extends EntityDTO> {
 
 	@PersistenceContext(unitName = "database")
 	protected EntityManager entityManager;
@@ -24,6 +23,11 @@ public abstract class EntityRepository<T extends Entity_> {
 	protected abstract String getAllEntities();
 	public List<T> getAll() {
 		return entityManager.createNamedQuery(getAllEntities(), getEntityClass()).getResultList();
+	}
+	
+	protected abstract String getEntitiesCount();
+	public long size() {
+		return entityManager.createNamedQuery(getEntitiesCount(), Long.class).getSingleResult();
 	}
 	
 	public Long addEntity(T entity) {

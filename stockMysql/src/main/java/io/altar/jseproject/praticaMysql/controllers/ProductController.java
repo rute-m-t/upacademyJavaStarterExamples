@@ -1,34 +1,38 @@
 package io.altar.jseproject.praticaMysql.controllers;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.ws.rs.GET;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 import io.altar.jseproject.praticaMysql.models.Product;
-import io.altar.jseproject.praticaMysql.models.ProductDTO;
-import io.altar.jseproject.praticaMysql.models.Shelf;
+import io.altar.jseproject.praticaMysql.models.DTOS.ProductDTO;
 import io.altar.jseproject.praticaMysql.repositories.ProductRepository;
 import io.altar.jseproject.praticaMysql.services.ProductService;
+import io.altar.jseproject.praticaMysql.services.ShelfService;
 
+@RequestScoped
 @Path("products")
-public class ProductController extends EntityController<ProductService, ProductRepository, Product> {
+public class ProductController extends EntityController<ProductService, ProductRepository, Product, ProductDTO> {
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<ProductDTO> getAll() {
-		return service.getAll().stream()
-				.map(product -> new ProductDTO(
-						product.getShelves().stream().map(
-								Shelf::getId).collect(Collectors.toList()),
-						product.getDiscount(),
-						product.getIva(),
-						product.getPvp()
-						)
-				)
-				.collect(Collectors.toList());
+	@Inject
+	ShelfService SS;
+	
+	@Override
+	public Product toEntity(ProductDTO entityDTO) {
+		Product product = new Product();
+		if (entityDTO.getId() > 0) {
+			product.setId(entityDTO.getId());
+			SS.removeProductsByProductId(entityDTO.getId());
+		}
+		product.setIva(entityDTO.getIva());
+		product.setPvp(entityDTO.getPvp());
+		product.setDiscount(entityDTO.getDiscount());
+		product.setShelves(entityDTO.getShelfIds().stream().map(entityId -> SS.get(entityId)).collect(Collectors.toList()));
+		
+		entityDTO.getShelfIds().forEach(shelfId -> SS.get(shelfId).setProduct(product));
+		return product;
 	}
+
 }

@@ -2,11 +2,14 @@ package io.altar.jseproject.praticaMysql.repositories;
 
 import java.util.List;
 
+import javax.enterprise.context.RequestScoped;
 import javax.persistence.TypedQuery;
 
 import io.altar.jseproject.praticaMysql.models.Shelf;
+import io.altar.jseproject.praticaMysql.models.DTOS.ShelfDTO;
 
-public class ShelfRepository extends EntityRepository<Shelf> {
+@RequestScoped
+public class ShelfRepository extends EntityRepository<Shelf, ShelfDTO> {
 
 	@Override
 	protected Class<Shelf> getEntityClass() {
@@ -21,6 +24,11 @@ public class ShelfRepository extends EntityRepository<Shelf> {
 	@Override
 	protected String getAllEntitiesIds() {
 		return Shelf.GET_ALL_SHELVES_IDS;
+	}
+	
+	@Override
+	protected String getEntitiesCount() {
+		return Shelf.GET_SHELVES_COUNT;
 	}
 	
 	public List<Shelf> getEmptyShelves() {

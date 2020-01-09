@@ -23,6 +23,4 @@ public abstract class Entity_<T> implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
-	public abstract T toDTO();
 }

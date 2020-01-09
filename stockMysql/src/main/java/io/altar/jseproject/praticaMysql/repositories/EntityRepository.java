@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 import io.altar.jseproject.praticaMysql.models.Entity_;
 import io.altar.jseproject.praticaMysql.models.DTOS.EntityDTO;
 
-public abstract class EntityRepository<T extends Entity_<D>, D extends EntityDTO> {
+public abstract class EntityRepository<T extends Entity_<D>, D extends EntityDTO<T>> {
 
 	@PersistenceContext(unitName = "database")
 	protected EntityManager entityManager;

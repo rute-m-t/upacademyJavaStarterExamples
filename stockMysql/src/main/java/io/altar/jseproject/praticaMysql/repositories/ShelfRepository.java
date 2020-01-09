@@ -2,13 +2,13 @@ package io.altar.jseproject.praticaMysql.repositories;
 
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.TypedQuery;
 
 import io.altar.jseproject.praticaMysql.models.Shelf;
 import io.altar.jseproject.praticaMysql.models.DTOS.ShelfDTO;
 
-@RequestScoped
+@ApplicationScoped
 public class ShelfRepository extends EntityRepository<Shelf, ShelfDTO> {
 
 	@Override

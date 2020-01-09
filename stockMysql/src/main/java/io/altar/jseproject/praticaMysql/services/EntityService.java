@@ -12,7 +12,7 @@ import io.altar.jseproject.praticaMysql.repositories.EntityRepository;
 import io.altar.jseproject.praticaMysql.services.interfaces.EntityServiceInterface;
 
 @Transactional
-public abstract class EntityService<R extends EntityRepository<E, D>,E extends Entity_<D>, D extends EntityDTO> implements EntityServiceInterface<E, D> {
+public abstract class EntityService<R extends EntityRepository<E, D>,E extends Entity_<D>, D extends EntityDTO<E>> implements EntityServiceInterface<E, D> {
 	
 	@Inject
 	protected R repository;

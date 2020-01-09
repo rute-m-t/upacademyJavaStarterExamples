@@ -6,17 +6,17 @@ import java.util.List;
 import io.altar.jseproject.praticaMysql.models.Entity_;
 import io.altar.jseproject.praticaMysql.models.DTOS.EntityDTO;
 
-public interface EntityServiceInterface<T extends Entity_<D>, D extends EntityDTO> {
+public interface EntityServiceInterface<E extends Entity_<D>, D extends EntityDTO<E>> {
 
-	T get(long id);
+	E get(long id);
 
 	List<Long> getAllIds();
 	
-	Collection<T> getAll();
+	Collection<E> getAll();
 
-	long create(T entity);
+	long create(E entity);
 
-	void update(T entity);
+	void update(E entity);
 
 	void delete(long id);
 	

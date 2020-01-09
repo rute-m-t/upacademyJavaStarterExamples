@@ -2,8 +2,10 @@ package io.altar.jseproject.praticaMysql.models.DTOS;
 
 import javax.transaction.Transactional;
 
+import io.altar.jseproject.praticaMysql.models.Entity_;
+
 @Transactional
-public abstract class EntityDTO<E> {
+public abstract class EntityDTO<E extends Entity_<?>> {
 
 	protected long id;
 

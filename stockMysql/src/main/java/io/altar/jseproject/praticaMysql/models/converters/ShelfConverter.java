@@ -5,13 +5,13 @@ import javax.inject.Inject;
 
 import io.altar.jseproject.praticaMysql.models.Shelf;
 import io.altar.jseproject.praticaMysql.models.DTOS.ShelfDTO;
-import io.altar.jseproject.praticaMysql.repositories.ProductRepository;
+import io.altar.jseproject.praticaMysql.services.ProductService;
 
 @RequestScoped
 public class ShelfConverter extends EntityConverter<Shelf, ShelfDTO> {
 
 	@Inject
-	ProductRepository PR;
+	ProductService PS;
 	
 	public Shelf toEntity(ShelfDTO selfDTO) {
 		Shelf shelf = new Shelf();
@@ -20,7 +20,7 @@ public class ShelfConverter extends EntityConverter<Shelf, ShelfDTO> {
 		}
 		shelf.setCapacity(selfDTO.getCapacity());
 		shelf.setDailyPrice(selfDTO.getDailyPrice());
-		shelf.setProduct(selfDTO.getProductId() > 0 ? PR.getEntity(selfDTO.getProductId()) : null);
+		shelf.setProduct(selfDTO.getProductId() > 0 ? PS.get(selfDTO.getProductId()) : null);
 		return shelf;
 	}
 	

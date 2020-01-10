@@ -1,7 +1,6 @@
 package io.altar.jseproject.praticaMysql.models;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -24,7 +23,7 @@ public class Product extends Entity_<ProductDTO> {
 
 	private static final long serialVersionUID = 1L;
 
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = false)
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
 	private List<Shelf> shelves;
 	private int discount;
 	private int iva;
@@ -64,11 +63,6 @@ public class Product extends Entity_<ProductDTO> {
 
 	public void setPvp(float pvp) {
 		this.pvp = pvp;
-	}
-
-	public ProductDTO toDTO() {
-		return new ProductDTO(this.getId(), this.getShelves().stream().map(Shelf::getId).collect(Collectors.toList()),
-				this.getDiscount(), this.getIva(), this.getPvp());
 	}
 
 	@Override

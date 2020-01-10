@@ -3,8 +3,14 @@ package io.altar.jseproject.praticaMysql.models.DTOS;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDTO extends EntityDTO {
+import javax.annotation.ManagedBean;
+import javax.annotation.PostConstruct;
 
+import io.altar.jseproject.praticaMysql.models.Product;
+
+@ManagedBean
+public class ProductDTO extends EntityDTO<Product> {
+	
 	private List<Long> shelfIds = new ArrayList<Long>();
 	private int discount;
 	private int iva;
@@ -12,13 +18,19 @@ public class ProductDTO extends EntityDTO {
 
 	public ProductDTO() {
 	}
-
+	
 	public ProductDTO(long id,List<Long> shelfIds, int discount, int iva, float pvp) {
 		this.id = id;
 		this.shelfIds = shelfIds;
 		this.discount = discount;
 		this.iva = iva;
 		this.pvp = pvp;
+	}
+	
+	@PostConstruct
+	public void init() {
+		System.out.println("@PostConstruct on ProductDTO");
+		System.out.println(this);
 	}
 
 	public List<Long> getShelfIds() {
@@ -57,5 +69,4 @@ public class ProductDTO extends EntityDTO {
 	public String toString() {
 		return "ProductDTO [shelfIds=" + shelfIds + ", discount=" + discount + ", iva=" + iva + ", pvp=" + pvp + "]";
 	}
-	
 }

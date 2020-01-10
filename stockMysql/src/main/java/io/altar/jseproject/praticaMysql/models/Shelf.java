@@ -59,16 +59,9 @@ public class Shelf extends Entity_<ShelfDTO> {
 		this.dailyPrice = dailyPrice;
 	}
 
-	public ShelfDTO toDTO() {
-		return new ShelfDTO(this.getId(), this.getCapacity(), this.getDailyPrice(),
-				(this.getProduct() == null) ? 0 : this.getProduct().getId());
-	}
-
 	@Override
 	public String toString() {
 		long productId = (product == null) ? 0 : product.getId();
 		return "Shelf [product=" + productId + ", capacity=" + capacity + ", dailyPrice=" + dailyPrice + "]";
 	}
-
-	
 }

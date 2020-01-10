@@ -3,7 +3,6 @@ package io.altar.jseproject.praticaMysql.controllers;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -14,16 +13,13 @@ import javax.ws.rs.core.Response;
 
 import io.altar.jseproject.praticaMysql.models.Shelf;
 import io.altar.jseproject.praticaMysql.models.DTOS.ShelfDTO;
+import io.altar.jseproject.praticaMysql.models.converters.ShelfConverter;
 import io.altar.jseproject.praticaMysql.repositories.ShelfRepository;
-import io.altar.jseproject.praticaMysql.services.ProductService;
 import io.altar.jseproject.praticaMysql.services.ShelfService;
 
 @RequestScoped
 @Path("shelves")
-public class ShelfController extends EntityController<ShelfService, ShelfRepository, Shelf, ShelfDTO> {
-
-	@Inject
-	ProductService PS;
+public class ShelfController extends EntityController<ShelfService, ShelfRepository,ShelfConverter, Shelf, ShelfDTO> {
 
 	@GET
 	@Path("empties")
@@ -44,17 +40,5 @@ public class ShelfController extends EntityController<ShelfService, ShelfReposit
 	public Response removeProductsByProductId(@PathParam("id") long id) {
 		service.removeProductsByProductId(id);
 		return Response.ok().build();
-	}
-
-	@Override
-	public Shelf toEntity(ShelfDTO entityDTO) {
-		Shelf shelf = new Shelf();
-		if (entityDTO.getId() > 0) {
-			shelf.setId(entityDTO.getId());
-		}
-		shelf.setCapacity(entityDTO.getCapacity());
-		shelf.setDailyPrice(entityDTO.getDailyPrice());
-		shelf.setProduct(entityDTO.getProductId() > 0 ? PS.get(entityDTO.getProductId()) : null);
-		return shelf;
 	}
 }

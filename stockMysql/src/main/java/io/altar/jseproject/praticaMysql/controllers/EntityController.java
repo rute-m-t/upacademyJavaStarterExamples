@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -20,14 +19,17 @@ import javax.ws.rs.core.UriInfo;
 
 import io.altar.jseproject.praticaMysql.models.Entity_;
 import io.altar.jseproject.praticaMysql.models.DTOS.EntityDTO;
+import io.altar.jseproject.praticaMysql.models.converters.EntityConverter;
 import io.altar.jseproject.praticaMysql.repositories.EntityRepository;
 import io.altar.jseproject.praticaMysql.services.EntityService;
 
-@Transactional
-public abstract class EntityController<S extends EntityService<R,E,T>,R extends EntityRepository<E, T>,E extends Entity_<T>,T extends EntityDTO> {
+public abstract class EntityController<S extends EntityService<R,E,D>,R extends EntityRepository<E, D>,C extends EntityConverter<E,D>,E extends Entity_<D>,D extends EntityDTO<E>> {
  
 	@Inject
 	protected S service;
+	
+	@Inject 
+	protected C converter;
 	
 	@Context
 	protected UriInfo context;
@@ -55,42 +57,43 @@ public abstract class EntityController<S extends EntityService<R,E,T>,R extends 
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<T> getAll() {
-		return service.getAll().stream().map(E::toDTO).collect(Collectors.toList());
+	public List<D> getAll() {
+		return service.getAll().stream().map(entity -> converter.toDTO(entity)).collect(Collectors.toList());
 	}
 	
 	@POST
 	@Path("list")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String save(List<T> entitiesDTO) {
+	public String save(List<D> entitiesDTO) {
 		entitiesDTO.forEach(entityDTO -> this.save(entityDTO));
 		return "Done";
 	}
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response save(T entityDTO) {
+	public Response save(D entityDTO) {
 		try {
-			long currentId = service.create(toEntity(entityDTO));
+			long currentId = service.create(converter.toEntity(entityDTO));
 			return Response.status(200).entity(currentId).build();
 		} catch (UnsupportedOperationException e) {
 			return Response.status(403).entity(e.getMessage()).build();
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
+//			e.printStackTrace();
 			return Response.status(400).entity(e.getMessage()).build();
 		}
 	}
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response update(T entityDTO) {
+	public Response update(D entityDTO) {
 		try {
-			E entity = toEntity(entityDTO);
+			E entity = converter.toEntity(entityDTO);
 			service.update(entity);
 			return Response.ok().build();
 		} catch (UnsupportedOperationException e) {
 			return Response.status(403).entity(e.getMessage()).build();
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			return Response.status(400).entity(e.getMessage()).build();
 		}
 	}
@@ -101,8 +104,8 @@ public abstract class EntityController<S extends EntityService<R,E,T>,R extends 
 	public Response get(@PathParam("id") long id) {
 		try {
 			E entity = service.get(id);
-			return Response.status(200).entity(entity.toDTO()).build();
-		} catch (Exception e) {
+			return Response.status(200).entity(converter.toDTO(entity)).build();
+		} catch (IllegalArgumentException e) {
 			return Response.status(400).entity(e.getMessage()).build();
 		}
 	}
@@ -115,10 +118,8 @@ public abstract class EntityController<S extends EntityService<R,E,T>,R extends 
 			return Response.ok().build();
 		} catch (UnsupportedOperationException e) {
 			return Response.status(403).entity(e.getMessage()).build();
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			return Response.status(400).entity(e.getMessage()).build();
 		}
 	}
-	
-	public abstract E toEntity(T entityDTO);
 }

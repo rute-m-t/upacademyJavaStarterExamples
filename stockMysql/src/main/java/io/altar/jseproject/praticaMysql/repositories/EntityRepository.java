@@ -8,12 +8,12 @@ import javax.persistence.PersistenceContext;
 import io.altar.jseproject.praticaMysql.models.Entity_;
 import io.altar.jseproject.praticaMysql.models.DTOS.EntityDTO;
 
-public abstract class EntityRepository<T extends Entity_<D>, D extends EntityDTO> {
+public abstract class EntityRepository<E extends Entity_<D>, D extends EntityDTO<E>> {
 
 	@PersistenceContext(unitName = "database")
 	protected EntityManager entityManager;
 	
-	protected abstract Class<T> getEntityClass();
+	protected abstract Class<E> getEntityClass();
 
 	protected abstract String getAllEntitiesIds();
 	public List<Long> getAllIds() {
@@ -21,7 +21,7 @@ public abstract class EntityRepository<T extends Entity_<D>, D extends EntityDTO
 	}
 	
 	protected abstract String getAllEntities();
-	public List<T> getAll() {
+	public List<E> getAll() {
 		return entityManager.createNamedQuery(getAllEntities(), getEntityClass()).getResultList();
 	}
 	
@@ -30,20 +30,20 @@ public abstract class EntityRepository<T extends Entity_<D>, D extends EntityDTO
 		return entityManager.createNamedQuery(getEntitiesCount(), Long.class).getSingleResult();
 	}
 	
-	public Long addEntity(T entity) {
+	public Long addEntity(E entity) {
 		return entityManager.merge(entity).getId();
 	}
 
-	public T getEntity(long id) {
+	public E getEntity(long id) {
 		return entityManager.find(getEntityClass(), id);
 	}
 
-	public T editEntity(T entity) {
+	public E editEntity(E entity) {
 		return entityManager.merge(entity);
 	}
 
 	public void removeEntity(long id) {
-		T entity = getEntity(id);
+		E entity = getEntity(id);
 		if(entity != null) {
 			entityManager.remove(entity);
 		}

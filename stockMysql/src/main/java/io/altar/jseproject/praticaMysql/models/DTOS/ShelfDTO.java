@@ -1,12 +1,23 @@
 package io.altar.jseproject.praticaMysql.models.DTOS;
 
-public class ShelfDTO extends EntityDTO {
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 
+import io.altar.jseproject.praticaMysql.models.Shelf;
+
+@RequestScoped
+public class ShelfDTO extends EntityDTO<Shelf> {
+	
 	private long productId;
 	private int capacity;
 	private float dailyPrice;
 
 	public ShelfDTO() {
+	}
+	
+	@PostConstruct
+	public void init() {
+		System.out.println("ShelfDTO @PostConstruct");
 	}
 
 	public ShelfDTO(long id, int capacity, float dailyPrice, long productId) {
@@ -43,6 +54,5 @@ public class ShelfDTO extends EntityDTO {
 	@Override
 	public String toString() {
 		return "ShelfDTO [productId=" + productId + ", capacity=" + capacity + ", dailyPrice=" + dailyPrice + "]";
-	}
-	
+	}	
 }
